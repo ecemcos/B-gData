@@ -1,0 +1,35 @@
+## 3. Big Data Architecture Design
+
+Figure 3.1 (file: `figure_architecture.svg`) presents the proposed architecture for MES as a layered diagram: an edge layer, an ingestion layer, a storage layer, a processing layer, a consumption/analytics layer, and two cross-cutting layers (security/governance and orchestration/observability) that apply to every layer above them rather than sitting in the data flow itself.
+
+### 3.1 Edge layer
+
+Meter and substation gateways perform local filtering and basic fault pre-detection before data leaves the site, and translate vendor-specific protocols (for example, MQTT for IoT sensors) into a common internal format. This addresses two brief-specific constraints directly: it reduces the effect of "inconsistent data formats across vendors" by normalising at the boundary rather than centrally, and it improves resilience, because a substation can still detect and act on a local fault even during a temporary loss of connectivity to the central platform.
+
+### 3.2 Ingestion layer
+
+Two parallel ingestion paths reflect MES's two latency regimes. A streaming path (publish/subscribe or IoT-hub pattern) accepts continuous meter, EV, solar, and substation telemetry, applying schema validation at the point of entry — the same principle demonstrated in the PoC (Section 4), where the PySpark ingestion step enforces an explicit `StructType` schema rather than inferring types. A batch/file ingestion path handles scheduled daily extracts from billing and maintenance systems, matching their existing operating rhythm rather than forcing an artificial real-time requirement onto systems that do not need it.
+
+### 3.3 Storage layer
+
+High-volume telemetry lands in a raw/landing zone exactly as received, is cleaned and schema-conformed into a curated zone, and is further aggregated into an analytics/serving zone optimised for the queries dashboards and forecasting models actually run — mirroring the raw → clean → aggregate progression implemented by `mes_poc_pyspark.py` in the PoC. Customer and billing records, which are relational and contain personal/financial data, sit in a separate operational database with its own access controls, rather than being mixed into the same object-storage zones as anonymous-at-rest telemetry; this separation is what makes it practical to apply different retention and access policies to personal data versus device telemetry, as data-protection law requires. All storage is deployed across multiple regions, which is both a resilience measure (the brief's "resilience across regions") and, if implemented with region-aware placement rules, a mechanism for keeping specific data within a required jurisdiction.
+
+### 3.4 Processing layer
+
+The processing layer is deliberately split into a stream/speed path (continuous fault and voltage-anomaly detection, feeding live alerts) and a distributed batch path (cleaning, aggregation, feature engineering, and forecasting), consistent with the Lambda-style pattern justified in Section 2. The batch path is the component the PoC in Section 4 implements and evidences directly: `mes_poc_pyspark.py` performs schema-enforced ingestion, deduplication, unit/format normalisation, missing-value imputation, feature engineering, and multi-dimensional aggregation, and `mes_poc_forecast.py` produces a peak-demand forecast from the aggregated output. Structuring the layer as event-driven microservices (rather than one monolithic job) means the metering, EV, solar, and substation-fault processing paths can each be deployed, scaled, and updated independently — important given MES integrates many third-party vendors whose data characteristics will keep changing.
+
+### 3.5 Consumption/analytics layer
+
+Operational dashboards and alerting serve grid-operations staff; regulatory/compliance reporting serves the obligations discussed in Section 1.7; customer-facing apps and billing serve the commercial relationship; and demand-response/planning tools consume the forecasting outputs to act on predicted peak-demand periods. Separating these four consumers from the processing layer (rather than querying raw/curated data directly) protects the underlying pipeline from being coupled to every downstream application's specific access pattern.
+
+### 3.6 How the design meets technical, security, compliance, and performance needs
+
+**Technical fit.** The dual-path ingestion and Lambda-style processing directly accommodate MES's mixed velocity profile (continuous telemetry alongside daily batch systems) without forcing one paradigm onto both; the edge layer and event-driven microservices address interoperability with legacy grid systems and multiple device vendors without bespoke point-to-point integration for each.
+
+**Security.** The cross-cutting security/governance layer applies identity and access management, encryption in transit and at rest, and audit logging uniformly across every layer, rather than as a bolt-on to individual components — meaning a new data source or consumer inherits these controls by default rather than requiring them to be re-implemented. A schema registry/data catalogue additionally reduces the risk of unvetted or malformed data reaching production analytics, which is a security concern as well as a quality one (malformed input has historically been a vector for pipeline failures and, in some architectures, injection-style attacks).
+
+**Compliance.** Personal/billing data is isolated into its own operational store with distinct access controls and retention rules, which is what makes GDPR/UK DPA obligations (data minimisation, the right to erasure, retention limits) practically enforceable rather than aspirational. Multi-region storage with region-aware placement supports data-residency requirements that may apply to specific customer segments or jurisdictions. The regulatory-reporting path in the consumption layer gives Ofgem/grid-code and data-protection reporting a defined, auditable source rather than ad hoc extraction from operational systems.
+
+**Performance.** Splitting stream and batch processing lets each be resourced and scaled to its own workload characteristics (the speed layer for low-latency fault response; the batch layer for high-throughput aggregation over large historical volumes, as demonstrated at PoC scale by `mes_poc_pyspark.py` processing roughly 876,000 raw readings). Storage tiering (raw → curated → analytics) means dashboards and forecasting queries run against pre-aggregated, purpose-built data rather than scanning raw telemetry every time, and the orchestration/observability cross-cutting layer gives MES the pipeline-performance visibility the brief specifically identifies as currently lacking.
+
+[PERSONALISE: add 1–2 paragraphs of your own critical evaluation here — for example, a genuine trade-off you see in this design (Lambda's dual-codebase maintenance cost vs. Kappa's simplicity; or the cost implications of multi-region replication), since the rubric rewards demonstrated critical judgement, not just a description of the diagram.]

@@ -1,0 +1,33 @@
+## 2. Cloud Computing Models, Architectures, and Processing Approaches
+
+### 2.1 Service models
+
+Under the widely-cited NIST definition (Mell and Grance, 2011), cloud service models sit on a spectrum of managed responsibility. Infrastructure-as-a-Service (IaaS) gives MES full control over virtual machines, storage, and networking, but leaves the organisation responsible for patching, scaling, and cluster management — a poor fit given MES's stated constraint of limited operational visibility and a small platform team implied by "manual data ingestion processes." Platform-as-a-Service (PaaS), where the provider manages the underlying cluster/runtime (managed Spark/Hadoop clusters, managed stream-processing services, managed relational/NoSQL databases), removes that operational burden while still allowing custom pipeline logic — this is the service model most of the PoC's processing layer maps to. Software-as-a-Service (SaaS) is relevant only at the edges of MES's estate (for example, a billing or CRM system procured as SaaS) rather than as the core big data platform, since MES's competitive differentiation lies in its own forecasting and grid-analytics logic, which SaaS products are not built to expose or customise.
+
+**Recommendation:** a predominantly PaaS-based approach for the core data platform (managed object storage, managed distributed processing, managed streaming), supplemented by IaaS only where a workload has unusual custom requirements, and SaaS for genuinely commodity back-office functions.
+
+### 2.2 Deployment models
+
+- **Public cloud** offers elasticity and a global footprint, which suits MES's need to serve "the UK and Europe" and to absorb variable telemetry volume without over-provisioning.
+- **Private cloud** offers greater control and can simplify certain compliance arguments, but at MES's scale it would recreate the capital cost and operational burden the organisation is trying to move away from, and it does not naturally solve multi-region resilience.
+- **Hybrid cloud** — combining public cloud elasticity with retained on-premises or edge components for latency-sensitive or sovereignty-sensitive workloads — is the model most consistent with MES's constraints: it allows substation control systems and any data that must legally stay within a specific jurisdiction to remain closer to the edge, while bulk analytics, forecasting, and storage scale elastically in the public cloud.
+- **Multi-cloud** (using more than one public cloud provider) can reduce vendor lock-in and support regional regulatory requirements, but adds real integration and skills overhead; it is worth naming as an option for MES's future roadmap (Section 5) rather than an immediate requirement.
+
+**Recommendation:** hybrid cloud, deployed across multiple public-cloud regions for resilience, with edge/on-premises retained specifically for substation control latency and any strictly data-resident workloads — not a single-region or purely private design.
+
+### 2.3 Architectures and processing approaches
+
+Three processing patterns are relevant to MES's mixed near-real-time/batch data profile:
+
+1. **Batch architecture** — periodic, high-throughput processing (e.g., nightly billing runs, monthly seasonal-trend reporting). Simple to reason about and cost-efficient, but introduces latency unsuitable for fault/voltage alerting.
+2. **Stream (real-time) architecture** — continuous processing of events as they arrive, suited to substation fault alerts and live grid-load dashboards, but historically harder to reprocess/backfill and to reconcile with batch-computed historical aggregates.
+3. **Lambda architecture** (Marz and Warren, 2015) — runs a batch layer and a speed (streaming) layer in parallel, merging their outputs at query time. This directly matches MES's stated split between continuous telemetry and daily batch billing, but at the cost of maintaining two codebases for overlapping logic.
+4. **Kappa architecture** — treats everything as a stream, with batch-style reprocessing achieved by replaying the stream from storage, reducing the dual-codebase problem of Lambda at the cost of requiring all processing logic to be stream-native.
+
+Complementing the processing pattern, a **microservices/event-driven architecture** (rather than a single monolithic application) is appropriate for MES because it mirrors the organisation's genuinely separate domains (metering, EV charging, solar monitoring, billing, maintenance) and allows each to evolve, scale, and fail independently — important given the brief's emphasis on resilience. **Edge computing** — pre-processing or filtering data at or near substations/meters before it reaches the cloud — is also worth adopting selectively, both to reduce bandwidth/ingestion cost at volume and to allow local fault detection to act with lower latency than a round-trip to a central cloud region would allow.
+
+### 2.4 Justified recommendation (provider-agnostic)
+
+Taking 2.1–2.3 together, the recommended direction for MES is: **a hybrid, multi-region public-cloud-first architecture, built primarily on managed PaaS services, structured around a Lambda-style batch-plus-speed processing pattern (or its Kappa variant, if MES's engineering team prefers a single stream-native codebase), decomposed into event-driven microservices aligned to MES's real business domains, with selective edge processing at substations.** This directly addresses the brief's constraints: elasticity absorbs variable telemetry volume ("growing... near real time monitoring"); multi-region deployment gives resilience "across regions"; managed PaaS services reduce the operational burden behind "manual data ingestion processes" and "limited visibility into pipeline performance"; and retaining edge/on-premises components for substation control and any jurisdiction-bound data addresses data-sovereignty and latency concerns without abandoning cloud economics entirely.
+
+This recommendation deliberately does not name a specific hyperscale provider, in line with the brief's instruction; it describes a *pattern* (hybrid, multi-region, PaaS-centric, Lambda/Kappa processing, event-driven microservices, selective edge) that any major cloud provider's managed big-data services could implement. [PERSONALISE: the PoC in Section 4 is implemented using PySpark on Google Cloud Platform purely as a demonstration environment — you should add a sentence clarifying that this implementation choice does not itself constitute a provider endorsement, and briefly note what you would evaluate (cost model, regional coverage, managed-Spark maturity, compliance certifications) before a real procurement decision.]
