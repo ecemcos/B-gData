@@ -1,0 +1,101 @@
+meter_id,customer_id,customer_type,region,country,has_solar,has_ev_charger,base_load_kw
+MTR-00001,CUST-00001,Residential,Yorkshire,UK,False,True,0.5398169857507614
+MTR-00002,CUST-00002,Residential,Bavaria,Germany,False,True,0.42579156985856115
+MTR-00003,CUST-00003,Commercial,Bavaria,Germany,False,False,7.463829362785312
+MTR-00004,CUST-00004,Residential,Scottish Highlands,UK,True,False,0.7300895466213712
+MTR-00005,CUST-00005,Commercial,Scottish Highlands,UK,True,False,5.937614235964941
+MTR-00006,CUST-00006,Commercial,Catalonia,Spain,False,False,2.2169762629681773
+MTR-00007,CUST-00007,Residential,Yorkshire,UK,False,False,0.6752004317353965
+MTR-00008,CUST-00008,Residential,Bavaria,Germany,True,False,0.5093129464759862
+MTR-00009,CUST-00009,Residential,London,UK,False,False,0.6307606291036152
+MTR-00010,CUST-00010,Residential,Yorkshire,UK,False,False,0.6297532048436226
+MTR-00011,CUST-00011,Residential,Scottish Highlands,UK,False,False,0.5947460079712908
+MTR-00012,CUST-00012,Residential,Catalonia,Spain,False,False,0.641517671754236
+MTR-00013,CUST-00013,Residential,Bavaria,Germany,False,True,0.9171690109103507
+MTR-00014,CUST-00014,Commercial,Bavaria,Germany,False,False,2.0325790047722028
+MTR-00015,CUST-00015,Residential,Bavaria,Germany,True,True,0.5671888271141567
+MTR-00016,CUST-00016,Residential,Bavaria,Germany,False,False,1.1539721340438063
+MTR-00017,CUST-00017,Residential,Scottish Highlands,UK,True,False,1.12471321758436
+MTR-00018,CUST-00018,Residential,Yorkshire,UK,True,False,0.7328193854700706
+MTR-00019,CUST-00019,Residential,Catalonia,Spain,False,False,0.5955250845042199
+MTR-00020,CUST-00020,Residential,Scottish Highlands,UK,False,False,0.7818913108470027
+MTR-00021,CUST-00021,Residential,Scottish Highlands,UK,False,False,1.063704439896262
+MTR-00022,CUST-00022,Residential,London,UK,False,False,0.8873286065040917
+MTR-00023,CUST-00023,Commercial,Yorkshire,UK,True,False,2.3099475020863935
+MTR-00024,CUST-00024,Residential,Catalonia,Spain,False,False,1.0239526451523695
+MTR-00025,CUST-00025,Residential,Bavaria,Germany,False,False,0.7794500484591661
+MTR-00026,CUST-00026,Residential,Bavaria,Germany,False,False,0.8696258663408587
+MTR-00027,CUST-00027,Residential,Scottish Highlands,UK,False,False,0.5593400527642155
+MTR-00028,CUST-00028,Residential,Catalonia,Spain,False,False,0.9614038460792615
+MTR-00029,CUST-00029,Residential,Scottish Highlands,UK,False,False,0.4821641338131465
+MTR-00030,CUST-00030,Commercial,Scottish Highlands,UK,False,False,5.635551065886366
+MTR-00031,CUST-00031,Residential,Scottish Highlands,UK,True,False,0.9253183159366483
+MTR-00032,CUST-00032,Residential,London,UK,True,False,1.0746471614933046
+MTR-00033,CUST-00033,Commercial,Yorkshire,UK,False,False,6.808890865156492
+MTR-00034,CUST-00034,Residential,Scottish Highlands,UK,False,False,0.41889255357138955
+MTR-00035,CUST-00035,Residential,Catalonia,Spain,False,False,0.8529417664877277
+MTR-00036,CUST-00036,Residential,Yorkshire,UK,False,True,0.3855861734069411
+MTR-00037,CUST-00037,Commercial,Catalonia,Spain,True,False,3.4313169237643306
+MTR-00038,CUST-00038,Residential,Catalonia,Spain,False,True,0.9531440654442842
+MTR-00039,CUST-00039,Residential,London,UK,False,False,0.3760438969411682
+MTR-00040,CUST-00040,Residential,Bavaria,Germany,False,True,1.1423458404305633
+MTR-00041,CUST-00041,Residential,Yorkshire,UK,False,False,0.4236671370340219
+MTR-00042,CUST-00042,Residential,Bavaria,Germany,False,False,1.1629922213181723
+MTR-00043,CUST-00043,Residential,Bavaria,Germany,False,True,1.020795758476587
+MTR-00044,CUST-00044,Residential,London,UK,False,False,0.8343138040197187
+MTR-00045,CUST-00045,Residential,Yorkshire,UK,False,True,1.004361694166592
+MTR-00046,CUST-00046,Residential,Catalonia,Spain,True,False,1.0156033550847772
+MTR-00047,CUST-00047,Residential,Scottish Highlands,UK,False,True,1.1514243565355973
+MTR-00048,CUST-00048,Residential,Catalonia,Spain,False,True,0.5280450184552684
+MTR-00049,CUST-00049,Residential,Bavaria,Germany,False,True,0.8310683058224781
+MTR-00050,CUST-00050,Industrial,Bavaria,Germany,False,False,46.945711377658675
+MTR-00051,CUST-00051,Commercial,Bavaria,Germany,False,False,7.0964530575384375
+MTR-00052,CUST-00052,Residential,Yorkshire,UK,True,True,0.3855442778079611
+MTR-00053,CUST-00053,Residential,London,UK,True,True,0.8545491300217092
+MTR-00054,CUST-00054,Industrial,Scottish Highlands,UK,True,False,59.10921532044068
+MTR-00055,CUST-00055,Commercial,Scottish Highlands,UK,False,True,2.3433916409195623
+MTR-00056,CUST-00056,Commercial,Yorkshire,UK,True,False,6.805783121850057
+MTR-00057,CUST-00057,Residential,Scottish Highlands,UK,False,True,0.45416217368350986
+MTR-00058,CUST-00058,Residential,Yorkshire,UK,True,False,0.8084555503251976
+MTR-00059,CUST-00059,Residential,Bavaria,Germany,True,False,0.8151874626304647
+MTR-00060,CUST-00060,Commercial,Bavaria,Germany,False,True,7.566772581033682
+MTR-00061,CUST-00061,Residential,Catalonia,Spain,False,False,0.7193866376831046
+MTR-00062,CUST-00062,Residential,Bavaria,Germany,False,False,0.7703685979618105
+MTR-00063,CUST-00063,Residential,London,UK,True,False,0.987531051005929
+MTR-00064,CUST-00064,Residential,Catalonia,Spain,False,False,1.0193202448608598
+MTR-00065,CUST-00065,Residential,Scottish Highlands,UK,False,False,0.7429378940178861
+MTR-00066,CUST-00066,Commercial,London,UK,True,False,6.632650394626284
+MTR-00067,CUST-00067,Commercial,Catalonia,Spain,True,False,6.188724703871824
+MTR-00068,CUST-00068,Commercial,London,UK,False,False,7.0278813119322985
+MTR-00069,CUST-00069,Residential,Yorkshire,UK,False,True,0.8396340973703511
+MTR-00070,CUST-00070,Residential,Scottish Highlands,UK,False,True,1.1381126121210916
+MTR-00071,CUST-00071,Residential,Bavaria,Germany,True,False,0.4077602296510105
+MTR-00072,CUST-00072,Residential,Yorkshire,UK,True,False,0.4053932093100994
+MTR-00073,CUST-00073,Residential,Scottish Highlands,UK,True,False,0.3789381107196915
+MTR-00074,CUST-00074,Residential,Yorkshire,UK,True,False,0.892076956536475
+MTR-00075,CUST-00075,Residential,Bavaria,Germany,False,True,0.6767474707113414
+MTR-00076,CUST-00076,Residential,Scottish Highlands,UK,True,False,0.9968892745276587
+MTR-00077,CUST-00077,Residential,London,UK,False,False,0.9041082719777334
+MTR-00078,CUST-00078,Residential,London,UK,False,True,0.6002739824954143
+MTR-00079,CUST-00079,Residential,Scottish Highlands,UK,False,False,1.1085298926253822
+MTR-00080,CUST-00080,Residential,Bavaria,Germany,True,True,0.986278932363587
+MTR-00081,CUST-00081,Residential,Catalonia,Spain,False,False,0.5434814468191581
+MTR-00082,CUST-00082,Industrial,Scottish Highlands,UK,False,False,42.51946226896813
+MTR-00083,CUST-00083,Residential,Yorkshire,UK,False,True,0.6277728159948486
+MTR-00084,CUST-00084,Residential,Catalonia,Spain,False,False,0.5829959821838366
+MTR-00085,CUST-00085,Residential,Bavaria,Germany,True,False,0.4418504837624997
+MTR-00086,CUST-00086,Residential,Bavaria,Germany,True,False,0.43300503528797246
+MTR-00087,CUST-00087,Industrial,Yorkshire,UK,False,False,17.452514174608304
+MTR-00088,CUST-00088,Residential,London,UK,False,False,1.1425147170381695
+MTR-00089,CUST-00089,Commercial,Bavaria,Germany,False,False,2.2409077972823983
+MTR-00090,CUST-00090,Residential,Catalonia,Spain,False,False,0.6941136334788779
+MTR-00091,CUST-00091,Residential,Scottish Highlands,UK,False,False,0.6449878404996687
+MTR-00092,CUST-00092,Residential,Catalonia,Spain,False,False,0.95671713780964
+MTR-00093,CUST-00093,Industrial,Catalonia,Spain,False,False,42.73390364673898
+MTR-00094,CUST-00094,Residential,London,UK,False,True,0.7976937587276098
+MTR-00095,CUST-00095,Residential,Catalonia,Spain,False,False,1.142525988154616
+MTR-00096,CUST-00096,Residential,London,UK,False,False,1.0022713445184528
+MTR-00097,CUST-00097,Residential,London,UK,False,False,0.7314326077120863
+MTR-00098,CUST-00098,Residential,Bavaria,Germany,True,False,0.6387235261327435
+MTR-00099,CUST-00099,Residential,Bavaria,Germany,False,False,1.1879683904318898
+MTR-00100,CUST-00100,Residential,Yorkshire,UK,False,False,0.9459842124032791
